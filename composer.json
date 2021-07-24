@@ -1,0 +1,26 @@
+{
+  "name": "oscmarb/elastic-apm-agent-php-v2",
+  "description": "Elastic APM agent for PHP",
+  "license": "MIT",
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "Oscmarb\\ElasticApm\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Oscmarb\\ElasticApm\\Tests\\": "tests"
+    }
+  },
+  "require": {
+    "php": ">=8.0",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "ext-mbstring": "*",
+    "ext-zlib": "*"
+  },
+  "require-dev": {
+    "symfony/var-dumper": "^5.3"
+  }
+}
