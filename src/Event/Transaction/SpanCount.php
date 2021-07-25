@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Oscmarb\ElasticApm\Event;
+namespace Oscmarb\ElasticApm\Event\Transaction;
 
-class SpanCount
+class SpanCount implements \JsonSerializable
 {
     public function __construct(private int $started = 0, private int $dropped = 0)
     {
@@ -20,7 +20,7 @@ class SpanCount
         return $this->dropped;
     }
 
-    public function toPrimitives(): array
+    public function jsonSerialize(): array
     {
         return [
             'started' => $this->started,

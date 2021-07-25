@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Oscmarb\ElasticApm\Event;
+namespace Oscmarb\ElasticApm\MetricSet;
 
 class TransactionMetric implements \JsonSerializable
 {
@@ -20,7 +20,7 @@ class TransactionMetric implements \JsonSerializable
         return $this->type;
     }
 
-    public function jsonSerialize():array
+    public function jsonSerialize(): array
     {
         return [
             'name' => $this->name,

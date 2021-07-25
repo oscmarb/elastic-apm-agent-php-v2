@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Oscmarb\ElasticApm\Pool\Memory;
 
-use Oscmarb\ElasticApm\Event\Context;
 use Oscmarb\ElasticApm\Event\Event;
-use Oscmarb\ElasticApm\Event\Transaction;
+use Oscmarb\ElasticApm\Event\Transaction\Context;
+use Oscmarb\ElasticApm\Event\Transaction\Transaction;
 use Oscmarb\ElasticApm\Pool\EventPool;
 use Oscmarb\ElasticApm\Pool\Exception\SpanNeedsStartedTransactionIdToCanBeCreatedException;
 

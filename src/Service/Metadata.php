@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Oscmarb\ElasticApm\Service;
 
-use Oscmarb\ElasticApm\Configuration\ApmConfiguration;
+use Oscmarb\ElasticApm\Configuration\Configuration;
 
 class Metadata implements \JsonSerializable
 {
@@ -12,7 +12,7 @@ class Metadata implements \JsonSerializable
     {
     }
 
-    public static function create(ApmConfiguration $configuration)
+    public static function create(Configuration $configuration): self
     {
         return new self(Service::create($configuration));
     }

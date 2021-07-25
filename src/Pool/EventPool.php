@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Oscmarb\ElasticApm\Pool;
 
-use Oscmarb\ElasticApm\Event\Context;
+use Oscmarb\ElasticApm\Event\Transaction\Context;
 
 interface EventPool
 {

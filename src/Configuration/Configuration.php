@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Oscmarb\ElasticApm\Configuration;
 
-class ApmConfiguration
+class Configuration
 {
     public function __construct(
         private string $appName,

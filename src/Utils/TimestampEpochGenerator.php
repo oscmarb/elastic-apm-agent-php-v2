@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Oscmarb\ElasticApm\Utils;
 
-class TimestampGenerator
+class TimestampEpochGenerator
 {
     public static function now(): int
     {

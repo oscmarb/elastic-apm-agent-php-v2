@@ -8,7 +8,7 @@ use Oscmarb\ElasticApm\Utils\StopWatch\Exception\StopWatchAlreadyRunningExceptio
 use Oscmarb\ElasticApm\Utils\StopWatch\Exception\StopWatchAlreadyStoppedException;
 use Oscmarb\ElasticApm\Utils\StopWatch\Exception\StopWatchNotStartedException;
 use Oscmarb\ElasticApm\Utils\StopWatch\Exception\StopWatchNotStoppedException;
-use Oscmarb\ElasticApm\Utils\TimestampGenerator;
+use Oscmarb\ElasticApm\Utils\TimestampEpochGenerator;
 
 class StopWatch
 {
@@ -21,7 +21,7 @@ class StopWatch
             throw new StopWatchAlreadyRunningException();
         }
 
-        $this->startAt = TimestampGenerator::now();
+        $this->startAt = TimestampEpochGenerator::now();
     }
 
     public function stop(): void
@@ -34,7 +34,7 @@ class StopWatch
             throw new StopWatchNotStartedException();
         }
 
-        $this->stopAt = TimestampGenerator::now();
+        $this->stopAt = TimestampEpochGenerator::now();
     }
 
     public function duration(): float

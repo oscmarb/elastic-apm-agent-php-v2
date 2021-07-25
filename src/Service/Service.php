@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Oscmarb\ElasticApm\Service;
 
-use Oscmarb\ElasticApm\Configuration\ApmConfiguration;
+use Oscmarb\ElasticApm\Configuration\Configuration;
 
 class Service implements \JsonSerializable
 {
-    public static function create(ApmConfiguration $configuration): self
+    public static function create(Configuration $configuration): self
     {
         return new self($configuration->appName(), Agent::discover());
     }

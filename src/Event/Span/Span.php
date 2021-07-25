@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Oscmarb\ElasticApm\Event;
+namespace Oscmarb\ElasticApm\Event\Span;
 
+use Oscmarb\ElasticApm\Event\Event;
 use Oscmarb\ElasticApm\Utils\StopWatch\StopWatch;
-use Oscmarb\ElasticApm\Utils\TimestampGenerator;
+use Oscmarb\ElasticApm\Utils\TimestampEpochGenerator;
 
 class Span extends Event
 {
@@ -16,15 +17,15 @@ class Span extends Event
     public function __construct(
         private string $name,
         private string $type,
-        private string $transactionId,
         private ?string $subtype,
+        string $transactionId,
         ?string $id,
         ?string $traceId,
         ?string $parentId
     ) {
-        parent::__construct($id, $traceId, $parentId);
+        parent::__construct($id, $traceId, $parentId, $transactionId);
 
-        $this->timestamp = TimestampGenerator::now();
+        $this->timestamp = TimestampEpochGenerator::now();
 
         $this->stopWatch = new StopWatch();
         $this->stopWatch->start();
@@ -57,9 +58,9 @@ class Span extends Event
         return $this->name;
     }
 
-    public function transactionId(): string
+    public function duration(): float
     {
-        return $this->transactionId;
+        return $this->duration;
     }
 
     public function jsonSerialize(): array
@@ -69,7 +70,6 @@ class Span extends Event
                 parent::jsonSerialize(),
                 [
                     'name' => $this->name,
-                    'transaction_id' => $this->transactionId,
                     'type' => $this->type,
                     'subtype' => $this->subtype,
                     'timestamp' => $this->timestamp,

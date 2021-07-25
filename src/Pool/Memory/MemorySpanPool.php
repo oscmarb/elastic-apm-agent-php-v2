@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Oscmarb\ElasticApm\Pool\Memory;
 
-use Oscmarb\ElasticApm\Event\Span;
+use Oscmarb\ElasticApm\Event\Span\Span;
 use Oscmarb\ElasticApm\Pool\Exception\SpanAlreadyStoppedException;
 use Oscmarb\ElasticApm\Pool\Exception\SpanNotFoundException;
 use Oscmarb\ElasticApm\Utils\EventIdGenerator;
@@ -27,7 +27,7 @@ class MemorySpanPool
     ): string {
         $id = EventIdGenerator::random();
 
-        $span = new Span($name, $type, $transactionId, $subtype, $id, $traceId, $parentId);
+        $span = new Span($name, $type, $subtype, $transactionId, $id, $traceId, $parentId);
         $this->unfinishedSpans[$id] = $span;
 
         return $id;

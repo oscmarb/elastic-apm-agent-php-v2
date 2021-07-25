@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Oscmarb\ElasticApm\Reporter;
+namespace Oscmarb\ElasticApm\Reporter\Curl;
 
+use Oscmarb\ElasticApm\Reporter\Reporter;
+use Oscmarb\ElasticApm\Reporter\ReporterException;
 use Oscmarb\ElasticApm\Utils\Compressor;
 use Oscmarb\ElasticApm\Utils\NDJson;
 

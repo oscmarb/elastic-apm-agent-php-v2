@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Oscmarb\ElasticApm\Event;
+namespace Oscmarb\ElasticApm\MetricSet;
 
 class Sample implements \JsonSerializable
 {

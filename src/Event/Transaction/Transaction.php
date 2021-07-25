@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Oscmarb\ElasticApm\Event;
+namespace Oscmarb\ElasticApm\Event\Transaction;
 
+use Oscmarb\ElasticApm\Event\Event;
 use Oscmarb\ElasticApm\Exception\TransactionIsNotCompletedException;
 use Oscmarb\ElasticApm\Utils\StopWatch\StopWatch;
-use Oscmarb\ElasticApm\Utils\TimestampGenerator;
+use Oscmarb\ElasticApm\Utils\TimestampEpochGenerator;
 
 class Transaction extends Event
 {
@@ -25,12 +26,12 @@ class Transaction extends Event
         ?string $parentId = null,
     ) {
         $this->spanCount = new SpanCount();
-        $this->timestamp = TimestampGenerator::now();
+        $this->timestamp = TimestampEpochGenerator::now();
         $this->stopWatch = new StopWatch();
 
         $this->stopWatch->start();
 
-        parent::__construct($id, $traceId, $parentId);
+        parent::__construct($id, $traceId, $parentId, null);
     }
 
     public function stop(?string $result): void
@@ -98,12 +99,12 @@ class Transaction extends Event
                 [
                     'id' => $this->id,
                     'duration' => $this->duration,
-                    'span_count' => $this->spanCount->toPrimitives(),
+                    'span_count' => $this->spanCount->jsonSerialize(),
                     'type' => $this->type,
                     'name' => $this->name,
                     'result' => $this->result,
                     'timestamp' => $this->timestamp,
-                    'context' => $this->context?->toPrimitives(),
+                    'context' => $this->context?->jsonSerialize(),
                 ]
             ),
         ];

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Oscmarb\ElasticApm\Processor;
 
-use Oscmarb\ElasticApm\Configuration\ApmConfiguration;
+use Oscmarb\ElasticApm\Configuration\Configuration;
+use Oscmarb\ElasticApm\Processor\MetricSetProcessor\MetricSetProcessor;
+use Oscmarb\ElasticApm\Processor\MetricSetProcessor\TransactionExtractor;
 
 class Handler
 {
@@ -16,9 +18,15 @@ class Handler
         $this->processors = $processors;
     }
 
-    public static function create(ApmConfiguration $configuration): self
+    public static function create(Configuration $configuration): self
     {
         $processors = [];
+
+        if (true === $configuration->metricSet()) {
+            $processors[] = new MetricSetProcessor(
+                new TransactionExtractor()
+            );
+        }
 
         return new self(...$processors);
     }

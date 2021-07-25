@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Oscmarb\ElasticApm;
 
-use Oscmarb\ElasticApm\Configuration\ApmConfiguration;
-use Oscmarb\ElasticApm\Event\Context;
+use Oscmarb\ElasticApm\Configuration\Configuration;
+use Oscmarb\ElasticApm\Event\Transaction\Context;
 use Oscmarb\ElasticApm\Pool\EventPool;
 use Oscmarb\ElasticApm\Processor\Handler;
 use Oscmarb\ElasticApm\Reporter\Reporter;
@@ -15,14 +15,16 @@ class ElasticApmTracer
 {
     private Handler $handler;
     private Metadata $metadata;
+    private ApmContext $context;
 
     public function __construct(
-        private ApmConfiguration $configuration,
+        private Configuration $configuration,
         private Reporter $reporter,
         private EventPool $eventPool
     ) {
         $this->handler = Handler::create($this->configuration);
         $this->metadata = Metadata::create($this->configuration);
+        $this->context = ApmContext::default();
     }
 
     public function isActive(): bool
@@ -78,7 +80,7 @@ class ElasticApmTracer
             return;
         }
 
-        $events = $this->handler->execute([$this->metadata, ...$events]);
+        $events = [$this->metadata, ...$events, ...$this->handler->execute($events)];
 
         $this->reporter->report($events);
     }

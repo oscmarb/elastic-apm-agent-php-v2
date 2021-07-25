@@ -1,14 +1,14 @@
 <?php
 
-use Oscmarb\ElasticApm\Configuration\ApmConfiguration;
+use Oscmarb\ElasticApm\Configuration\Configuration;
 use Oscmarb\ElasticApm\ElasticApmTracer;
 use Oscmarb\ElasticApm\Pool\Memory\MemoryEventPool;
-use Oscmarb\ElasticApm\Reporter\CurlReporter;
+use Oscmarb\ElasticApm\Reporter\Curl\CurlReporter;
 
 require 'vendor/autoload.php';
 
 
-$configuration = new ApmConfiguration('app bro');
+$configuration = new Configuration('app bro');
 $tracer = new ElasticApmTracer($configuration, new CurlReporter('http://apm-server:8200'), new MemoryEventPool());
 
 $transactionId = $tracer->startTransaction('create.user', 'command');
